@@ -107,3 +107,16 @@ func TestRemoveWhenEndIndexOutOfBounds(t *testing.T) {
 		t.Error("Should throw error but did not")
 	}
 }
+
+func TestRemoveWhenLengthZero(t *testing.T) {
+	const expected string = "Hello"
+	sb := NewFromString(expected)
+
+	if err := sb.Remove(0, 0); err != nil {
+		t.Errorf("Remove threw an error: %v", err)
+	}
+
+	if result := sb.ToString(); result != expected {
+		t.Errorf("Actual %q, Expected: %q", result, expected)
+	}
+}
