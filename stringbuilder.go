@@ -1,5 +1,7 @@
 package Text
 
+import "fmt"
+
 type StringBuilder struct {
 	data     []rune
 	position int
@@ -8,6 +10,14 @@ type StringBuilder struct {
 // Creates a new instance of the StringBuilder with preallocated array
 func NewStringBuilder(initialCapacity int) *StringBuilder {
 	return &StringBuilder{data: make([]rune, initialCapacity)}
+}
+
+// Creates a new instance of the StringBuilder with a preallocated text
+func NewFromString(text string) *StringBuilder {
+	return &StringBuilder{
+		data:     []rune(text),
+		position: len(text),
+	}
 }
 
 // Appends a text to the StringBuilder instance
@@ -46,6 +56,33 @@ func (s *StringBuilder) Len() int {
 // Returns the represented string
 func (s *StringBuilder) ToString() string {
 	return string(s.data[:s.position])
+}
+
+func (s *StringBuilder) Remove(start int, length int) error {
+	if start >= s.position {
+		return fmt.Errorf("start is after the end of the string")
+	}
+	if start < 0 {
+		return fmt.Errorf("start can't be a negative value")
+	}
+	if length < 0 {
+		return fmt.Errorf("length can't be a negative value")
+	}
+
+	endIndex := start + length - 1
+
+	if endIndex > s.position {
+		return fmt.Errorf("can't delete after the end of the string")
+	}
+
+	if length == 0 {
+		return nil
+	}
+
+	s.data = append(s.data[:start], s.data[endIndex])
+	s.position -= length
+
+	return nil
 }
 
 func (s *StringBuilder) grow(lenToAdd int) {
