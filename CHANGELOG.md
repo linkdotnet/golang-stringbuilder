@@ -9,4 +9,4 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 This is the initial release for the `StringBuilder`.
 
 ### Added
- - `StringBuilder` with some major methods
+ - `StringBuilder` with some major methods like (`Insert`, `Remove`, `Append`)
