@@ -59,7 +59,7 @@ func TestToStringEmptyBuilder(t *testing.T) {
 func TestNewFromString(t *testing.T) {
 	const expected string = "Hello"
 
-	sb := NewFromString(expected)
+	sb := NewStringBuilderFromString(expected)
 
 	if result := sb.ToString(); result != expected {
 		t.Errorf("Actual %q, Expected: %q", result, expected)
@@ -67,7 +67,7 @@ func TestNewFromString(t *testing.T) {
 }
 
 func TestRemovePartOfString(t *testing.T) {
-	sb := NewFromString("Hello")
+	sb := NewStringBuilderFromString("Hello")
 
 	if err := sb.Remove(3, 2); err != nil {
 		t.Errorf("Remove threw an error: %v", err)
@@ -79,7 +79,7 @@ func TestRemovePartOfString(t *testing.T) {
 }
 
 func TestRemoveWhenStartIndexOutOfBounds(t *testing.T) {
-	sb := NewFromString("Hello")
+	sb := NewStringBuilderFromString("Hello")
 
 	if err := sb.Remove(100, 1); err == nil {
 		t.Error("Should throw error but did not")
@@ -87,7 +87,7 @@ func TestRemoveWhenStartIndexOutOfBounds(t *testing.T) {
 }
 
 func TestRemoveWhenStartIndexNegative(t *testing.T) {
-	sb := NewFromString("Hello")
+	sb := NewStringBuilderFromString("Hello")
 
 	if err := sb.Remove(-1, 1); err == nil {
 		t.Error("Should throw error but did not")
@@ -95,7 +95,7 @@ func TestRemoveWhenStartIndexNegative(t *testing.T) {
 }
 
 func TestRemoveWhenLengthNegative(t *testing.T) {
-	sb := NewFromString("Hello")
+	sb := NewStringBuilderFromString("Hello")
 
 	if err := sb.Remove(1, -1); err == nil {
 		t.Error("Should throw error but did not")
@@ -103,7 +103,7 @@ func TestRemoveWhenLengthNegative(t *testing.T) {
 }
 
 func TestRemoveWhenEndIndexOutOfBounds(t *testing.T) {
-	sb := NewFromString("Hello")
+	sb := NewStringBuilderFromString("Hello")
 
 	if err := sb.Remove(4, 4); err == nil {
 		t.Error("Should throw error but did not")
@@ -112,7 +112,7 @@ func TestRemoveWhenEndIndexOutOfBounds(t *testing.T) {
 
 func TestRemoveWhenLengthZero(t *testing.T) {
 	const expected string = "Hello"
-	sb := NewFromString(expected)
+	sb := NewStringBuilderFromString(expected)
 
 	if err := sb.Remove(0, 0); err != nil {
 		t.Errorf("Remove threw an error: %v", err)
@@ -125,7 +125,7 @@ func TestRemoveWhenLengthZero(t *testing.T) {
 
 func TestInsertAtIndex(t *testing.T) {
 	const expected string = "Hello my dear and beautiful World"
-	sb := NewFromString("Hello World")
+	sb := NewStringBuilderFromString("Hello World")
 
 	if err := sb.Insert(5, " my dear and beautiful"); err != nil {
 		t.Errorf("Insert threw an error: %v", err)
@@ -149,5 +149,15 @@ func TestInsertShouldThrowErrirIfOutOfRange(t *testing.T) {
 
 	if err := sb.Insert(1, "Test"); err == nil {
 		t.Error("Should throw error but did not")
+	}
+}
+
+func TestClear(t *testing.T) {
+	sb := NewStringBuilderFromString("Hello")
+
+	sb.Clear()
+
+	if result := sb.ToString(); result != "" {
+		t.Errorf("Expected empty string but did receive %v", result)
 	}
 }

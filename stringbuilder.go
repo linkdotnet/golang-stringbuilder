@@ -13,7 +13,7 @@ func NewStringBuilder(initialCapacity int) *StringBuilder {
 }
 
 // Creates a new instance of the StringBuilder with a preallocated text
-func NewFromString(text string) *StringBuilder {
+func NewStringBuilderFromString(text string) *StringBuilder {
 	return &StringBuilder{
 		data:     []rune(text),
 		position: len(text),
@@ -103,6 +103,12 @@ func (s *StringBuilder) Insert(index int, text string) error {
 	s.position = newLen
 
 	return nil
+}
+
+// Removes all characters from the current instance. This sets the internal size to 0.
+// The internal array will stay the same.
+func (s *StringBuilder) Clear() {
+	s.position = 0
 }
 
 func (s *StringBuilder) grow(lenToAdd int) {
