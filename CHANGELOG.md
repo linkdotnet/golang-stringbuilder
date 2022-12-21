@@ -6,6 +6,12 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+ * `Clear` methods
+
+### Changed
+ * Changed `NewFromString` to `NewStringBuilderFromString` to stay closer to standards
+
 ## [0.1.0] - 2022-12-21
 
 This is the initial release for the `StringBuilder`.
