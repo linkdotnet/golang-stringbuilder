@@ -85,6 +85,26 @@ func (s *StringBuilder) Remove(start int, length int) error {
 	return nil
 }
 
+func (s *StringBuilder) Insert(index int, text string) error {
+	if index < 0 {
+		return fmt.Errorf("index can't be negative")
+	}
+
+	if index > s.position {
+		return fmt.Errorf("can't write outside the buffer")
+	}
+
+	newLen := s.position + len(text)
+	if newLen >= cap(s.data) {
+		s.grow(newLen)
+	}
+
+	s.data = append(s.data[:index], append([]rune(text), s.data[index:]...)...)
+	s.position = newLen
+
+	return nil
+}
+
 func (s *StringBuilder) grow(lenToAdd int) {
 	// Grow times 2 until lenToAdd fits
 	newLen := cap(s.data)

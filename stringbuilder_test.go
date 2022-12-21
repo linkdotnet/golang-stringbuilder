@@ -1,6 +1,8 @@
 package Text
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestAppend(t *testing.T) {
 	const expected string = "Hello World"
@@ -118,5 +120,34 @@ func TestRemoveWhenLengthZero(t *testing.T) {
 
 	if result := sb.ToString(); result != expected {
 		t.Errorf("Actual %q, Expected: %q", result, expected)
+	}
+}
+
+func TestInsertAtIndex(t *testing.T) {
+	const expected string = "Hello my dear and beautiful World"
+	sb := NewFromString("Hello World")
+
+	if err := sb.Insert(5, " my dear and beautiful"); err != nil {
+		t.Errorf("Insert threw an error: %v", err)
+	}
+
+	if result := sb.ToString(); result != expected {
+		t.Errorf("Actual %q, Expected: %q", result, expected)
+	}
+}
+
+func TestInsertShouldThrowIfNegativeIndex(t *testing.T) {
+	sb := StringBuilder{}
+
+	if err := sb.Insert(-1, "Test"); err == nil {
+		t.Error("Should throw error but did not")
+	}
+}
+
+func TestInsertShouldThrowErrirIfOutOfRange(t *testing.T) {
+	sb := StringBuilder{}
+
+	if err := sb.Insert(1, "Test"); err == nil {
+		t.Error("Should throw error but did not")
 	}
 }
