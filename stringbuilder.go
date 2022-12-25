@@ -111,6 +111,25 @@ func (s *StringBuilder) Clear() {
 	s.position = 0
 }
 
+// Gets the rune at the specific position
+func (s *StringBuilder) RuneAt(index int) rune {
+	return s.data[index]
+}
+
+// Returns the string builder as a rune-slice
+func (s *StringBuilder) AsRune() []rune {
+	return s.data[:s.position]
+}
+
+// Replaces all occurences of a given string with a new one
+func (s *StringBuilder) replace(original string, new string) {
+	occurences := findAllText(s.AsRune(), original)
+
+	for _, _ = range occurences {
+
+	}
+}
+
 func (s *StringBuilder) grow(lenToAdd int) {
 	// Grow times 2 until lenToAdd fits
 	newLen := cap(s.data)

@@ -6,6 +6,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+- Added the following methods: `RuneAt`, `AsRune`
+
 ## [0.2.0] - 2022-12-23
 
 ### Added

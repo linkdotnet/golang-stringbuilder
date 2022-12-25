@@ -1,6 +1,7 @@
 package Text
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -159,5 +160,22 @@ func TestClear(t *testing.T) {
 
 	if result := sb.ToString(); result != "" {
 		t.Errorf("Expected empty string but did receive %v", result)
+	}
+}
+
+func TestRuneAt(t *testing.T) {
+	sb := NewStringBuilderFromString("Hello")
+
+	if result := sb.RuneAt(1); result != 'e' {
+		t.Errorf("Actual %q, Expected: %q", result, 'e')
+	}
+}
+
+func TestAsRune(t *testing.T) {
+	expected := []rune{'H', 'e', 'l', 'l', 'o'}
+	sb := NewStringBuilderFromString("Hello")
+
+	if result := sb.AsRune(); !reflect.DeepEqual(result, expected) {
+		t.Errorf("Actual %q, Expected: %q", result, expected)
 	}
 }
