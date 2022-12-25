@@ -179,3 +179,16 @@ func TestAsRune(t *testing.T) {
 		t.Errorf("Actual %q, Expected: %q", result, expected)
 	}
 }
+
+func TestAppendRuneMultiple(t *testing.T) {
+	expected := "aaaaaaaaaaaaaaa"
+	sb := StringBuilder{}
+
+	for i := 0; i < 15; i++ {
+		sb.AppendRune('a')
+	}
+
+	if result := sb.ToString(); result != expected {
+		t.Errorf("Actual %q, Expected: %q", result, expected)
+	}
+}
