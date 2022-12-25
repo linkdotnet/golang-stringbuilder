@@ -19,7 +19,7 @@ import ( "github.com/linkdotnet/golang-stringbuilder" )
 
 ## Quickstart
 
-The API is derived from the C# `StringBuilder`. You can easily append strings or single runes.
+The API derives from the C# `StringBuilder`. You can easily append strings or single runes.
 
 ```golang
 func main() {
@@ -29,4 +29,11 @@ func main() {
 	sb.Append("World")
 	fmt.Println(sb.ToString())
 }
+```
+
+Also more advanced use cases where you want to insert an arbitrary word at an arbitrary position are possible.
+```golang
+sb := NewStringBuilderFromString("Hello World")
+sb.Insert(5, " my dear")
+output := sb.ToString() // Hello my dear World
 ```
