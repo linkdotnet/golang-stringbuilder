@@ -175,7 +175,7 @@ func TestAsRune(t *testing.T) {
 	expected := []rune{'H', 'e', 'l', 'l', 'o'}
 	sb := NewStringBuilderFromString("Hello")
 
-	if result := sb.AsRune(); !reflect.DeepEqual(result, expected) {
+	if result := sb.AsRuneSlice(); !reflect.DeepEqual(result, expected) {
 		t.Errorf("Actual %q, Expected: %q", result, expected)
 	}
 }

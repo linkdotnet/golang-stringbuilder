@@ -116,24 +116,25 @@ func (s *StringBuilder) RuneAt(index int) rune {
 	return s.data[index]
 }
 
-// Returns the string builder as a rune-slice
-func (s *StringBuilder) AsRune() []rune {
+// Returns the string builder as a rune-slice. Be careful as this returns the internal slice.
+// Changes to that will reflect in this string builder instance.
+func (s *StringBuilder) AsRuneSlice() []rune {
 	return s.data[:s.position]
 }
 
 // Returns the first occurrence of the given text in the string builder. Returns -1 if not found
 func (s *StringBuilder) FindFirst(text string) int {
-	return findFirst(s.AsRune(), text)
+	return findFirst(s.AsRuneSlice(), text)
 }
 
 // Returns the last occurrence of the given text in the string builder. Returns -1 if not found
 func (s *StringBuilder) FindLast(text string) int {
-	return findLast(s.AsRune(), text)
+	return findLast(s.AsRuneSlice(), text)
 }
 
 // Returns all occurrences of the given text in the string builder. Returns an empty if no occurrence found.
 func (s *StringBuilder) FindAll(text string) []int {
-	return findAll(s.AsRune(), text)
+	return findAll(s.AsRuneSlice(), text)
 }
 
 func (s *StringBuilder) grow(lenToAdd int) {
