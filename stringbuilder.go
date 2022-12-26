@@ -79,7 +79,8 @@ func (s *StringBuilder) Remove(start int, length int) error {
 		return nil
 	}
 
-	s.data = append(s.data[:start], s.data[endIndex])
+	x := start + length
+	s.data = append(s.data[:start], s.data[x:]...)
 	s.position -= length
 
 	return nil
@@ -135,6 +136,47 @@ func (s *StringBuilder) FindLast(text string) int {
 // Returns all occurrences of the given text in the string builder. Returns an empty if no occurrence found.
 func (s *StringBuilder) FindAll(text string) []int {
 	return findAll(s.AsRuneSlice(), text)
+}
+
+// Replaces all occurrences of oldValue with newValue
+func (s *StringBuilder) ReplaceRune(oldValue rune, newValue rune) {
+	occurrences := s.FindAll(string(oldValue))
+
+	for _, v := range occurrences {
+		s.data[v] = newValue
+	}
+}
+
+// Replaces all occurrences of oldValue with newValue
+func (s *StringBuilder) Replace(oldValue string, newValue string) {
+	if oldValue == newValue {
+		return
+	}
+
+	occurrences := s.FindAll(oldValue)
+
+	delta := len(newValue) - len(oldValue)
+
+	for i := 0; i < len(occurrences); i++ {
+		index := occurrences[i] + delta*i
+
+		// newValue is smaller than old value
+		// We can insert the slice and remove the overhead
+		if delta < 0 {
+			copy(s.data[index:], []rune(newValue))
+			s.Remove(index+len(newValue), -delta)
+		} else if delta == 0 {
+			// Same length -> We can just replace the memory slice
+			copy(s.data[index:], []rune(newValue))
+		} else {
+			// newValue is larger than the old value
+			// First add until the old memory region
+			// and insert afterwards the rest
+			x := len(oldValue)
+			copy(s.data[index:], []rune(newValue[:x]))
+			s.Insert(index+len(oldValue), newValue[len(oldValue):])
+		}
+	}
 }
 
 func (s *StringBuilder) grow(lenToAdd int) {

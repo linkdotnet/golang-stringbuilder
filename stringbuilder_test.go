@@ -124,6 +124,19 @@ func TestRemoveWhenLengthZero(t *testing.T) {
 	}
 }
 
+func TestRemoveInTheMiddle(t *testing.T) {
+	const expected string = "Hlo World"
+	sb := NewStringBuilderFromString("Hello World")
+
+	if err := sb.Remove(1, 2); err != nil {
+		t.Errorf("Remove threw an error: %v", err)
+	}
+
+	if result := sb.ToString(); result != expected {
+		t.Errorf("Actual %q, Expected: %q", result, expected)
+	}
+}
+
 func TestInsertAtIndex(t *testing.T) {
 	const expected string = "Hello my dear and beautiful World"
 	sb := NewStringBuilderFromString("Hello World")
@@ -253,6 +266,41 @@ func TestFindAll(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			s := NewStringBuilderFromString(tt.input)
 			if got := s.FindAll(tt.needle); !slicesEqual(got, tt.want) {
+				t.Errorf("StringBuilder.FindLast() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestReplaceRune(t *testing.T) {
+	s := NewStringBuilderFromString("Hello")
+
+	s.ReplaceRune('l', 'm')
+
+	if got := s.ToString(); got != "Hemmo" {
+		t.Errorf("StringBuilder.ReplaceRune() = %v, want %v", got, "Hemmo")
+	}
+}
+
+func TestReplace(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		oldValue string
+		newvalue string
+		want     string
+	}{
+		{"Replace Hello with Hallo", "Hello World", "Hello", "Hallo", "Hallo World"},
+		{"Replace Hello with Ha", "Hello World", "Hello", "Ha", "Ha World"},
+		{"Replace Hello with Hallöchen", "Hello World", "Hello", "Hallochen", "Hallochen World"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := NewStringBuilderFromString(tt.input)
+
+			s.Replace(tt.oldValue, tt.newvalue)
+
+			if got := s.ToString(); got != tt.want {
 				t.Errorf("StringBuilder.FindLast() = %v, want %v", got, tt.want)
 			}
 		})
