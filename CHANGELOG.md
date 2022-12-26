@@ -6,6 +6,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+- Added the following methods: `FindFirst`, `FindLast`, `FindAll`
+
 ## [0.3.0] - 2022-12-25
 
 ### Added

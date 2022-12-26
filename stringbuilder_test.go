@@ -192,3 +192,83 @@ func TestAppendRuneMultiple(t *testing.T) {
 		t.Errorf("Actual %q, Expected: %q", result, expected)
 	}
 }
+
+func TestFindFirst(t *testing.T) {
+	tests := []struct {
+		name   string
+		input  string
+		needle string
+		want   int
+	}{
+		{"Empty haystack", "", "n", -1},
+		{"Empty needle", "n", "", -1},
+		{"Needle longer than haystack", "a", "ab", -1},
+		{"Hello in Hello World", "Hello World", "Hello", 0},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := NewStringBuilderFromString(tt.input)
+			if got := s.FindFirst(tt.needle); got != tt.want {
+				t.Errorf("StringBuilder.FindFirst() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestFindLast(t *testing.T) {
+	tests := []struct {
+		name   string
+		input  string
+		needle string
+		want   int
+	}{
+		{"Empty haystack", "", "n", -1},
+		{"Empty needle", "n", "", -1},
+		{"Needle longer than haystack", "a", "ab", -1},
+		{"Hello in Hello World", "Hello World", "Hello", 0},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := NewStringBuilderFromString(tt.input)
+			if got := s.FindLast(tt.needle); got != tt.want {
+				t.Errorf("StringBuilder.FindLast() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestFindAll(t *testing.T) {
+	tests := []struct {
+		name   string
+		input  string
+		needle string
+		want   []int
+	}{
+		{"Empty haystack", "", "n", []int{}},
+		{"Empty needle", "n", "", []int{}},
+		{"Needle longer than haystack", "a", "ab", []int{}},
+		{"Hello in Hello World", "Hello World", "Hello", []int{0}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := NewStringBuilderFromString(tt.input)
+			if got := s.FindAll(tt.needle); !slicesEqual(got, tt.want) {
+				t.Errorf("StringBuilder.FindLast() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func slicesEqual(a []int, b []int) bool {
+	if len(a) != len(b) {
+		return false
+	}
+
+	for i := 0; i < len(a); i++ {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+
+	return true
+}

@@ -121,6 +121,21 @@ func (s *StringBuilder) AsRune() []rune {
 	return s.data[:s.position]
 }
 
+// Returns the first occurrence of the given text in the string builder. Returns -1 if not found
+func (s *StringBuilder) FindFirst(text string) int {
+	return findFirst(s.AsRune(), text)
+}
+
+// Returns the last occurrence of the given text in the string builder. Returns -1 if not found
+func (s *StringBuilder) FindLast(text string) int {
+	return findLast(s.AsRune(), text)
+}
+
+// Returns all occurrences of the given text in the string builder. Returns an empty if no occurrence found.
+func (s *StringBuilder) FindAll(text string) []int {
+	return findAll(s.AsRune(), text)
+}
+
 func (s *StringBuilder) grow(lenToAdd int) {
 	// Grow times 2 until lenToAdd fits
 	newLen := cap(s.data)
