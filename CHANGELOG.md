@@ -6,6 +6,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Changed
+- Renamed `AsRune` to `AsRuneSlice` and included some more documentation to highlight that this is a shared memory block.
+
 ## [0.4.0] - 2022-12-26
 
 ### Added
