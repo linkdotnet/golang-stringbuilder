@@ -6,8 +6,11 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [0.4.0] - 2022-12-26
+
 ### Added
-- Added the following methods: `FindFirst`, `FindLast`, `FindAll`
+
+-   Added the following methods: `FindFirst`, `FindLast`, `FindAll`
 
 ## [0.3.0] - 2022-12-25
 
@@ -33,7 +36,9 @@ This is the initial release for the `StringBuilder`.
 
 -   `StringBuilder` with some major methods like (`Insert`, `Remove`, `Append`)
 
-[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.3.0...HEAD
+[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.4.0...HEAD
+
+[0.4.0]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.3.0...0.4.0
 
 [0.3.0]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.2.0...0.3.0
 
