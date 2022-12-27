@@ -6,8 +6,11 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [0.5.1] - 2022-12-27
+
 ### Fixed
-- Fixed a bug where find and friends and Replace did not work properly with umlauts or 2 (or more) byte character 
+
+-   Fixed a bug where find and friends and Replace did not work properly with umlauts or 2 (or more) byte character 
 
 ## [0.5.0] - 2022-12-26
 
@@ -49,7 +52,9 @@ This is the initial release for the `StringBuilder`.
 
 -   `StringBuilder` with some major methods like (`Insert`, `Remove`, `Append`)
 
-[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.5.0...HEAD
+[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.5.1...HEAD
+
+[0.5.1]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.5.0...0.5.1
 
 [0.5.0]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.4.0...0.5.0
 
