@@ -217,6 +217,7 @@ func TestFindFirst(t *testing.T) {
 		{"Empty needle", "n", "", -1},
 		{"Needle longer than haystack", "a", "ab", -1},
 		{"Hello in Hello World", "Hello World", "Hello", 0},
+		{"ö in Helöö", "Hellöö", "ö", 4},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -239,6 +240,7 @@ func TestFindLast(t *testing.T) {
 		{"Empty needle", "n", "", -1},
 		{"Needle longer than haystack", "a", "ab", -1},
 		{"Hello in Hello World", "Hello World", "Hello", 0},
+		{"ö in Helöö", "Hellöö", "ö", 5},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -261,6 +263,7 @@ func TestFindAll(t *testing.T) {
 		{"Empty needle", "n", "", []int{}},
 		{"Needle longer than haystack", "a", "ab", []int{}},
 		{"Hello in Hello World", "Hello World", "Hello", []int{0}},
+		{"ö in Helöö", "Hellöö", "ö", []int{4, 5}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -292,7 +295,9 @@ func TestReplace(t *testing.T) {
 	}{
 		{"Replace Hello with Hallo", "Hello World", "Hello", "Hallo", "Hallo World"},
 		{"Replace Hello with Ha", "Hello World", "Hello", "Ha", "Ha World"},
-		{"Replace Hello with Hallöchen", "Hello World", "Hello", "Hallochen", "Hallochen World"},
+		{"Replace Hello with Hallochen", "Hello World", "Hello", "Hallochen", "Hallochen World"},
+		{"Replace Hello with Hallöchen", "Hello World", "Hello", "Hallöchen", "Hallöchen World"},
+		{"Replace ö with ä", "äö", "ö", "ä", "ää"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

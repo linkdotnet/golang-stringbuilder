@@ -16,7 +16,7 @@ func NewStringBuilder(initialCapacity int) *StringBuilder {
 func NewStringBuilderFromString(text string) *StringBuilder {
 	return &StringBuilder{
 		data:     []rune(text),
-		position: len(text),
+		position: len([]rune(text)),
 	}
 }
 
@@ -155,7 +155,10 @@ func (s *StringBuilder) Replace(oldValue string, newValue string) {
 
 	occurrences := s.FindAll(oldValue)
 
-	delta := len(newValue) - len(oldValue)
+	oldValueRunes := []rune(oldValue)
+	newValueRunes := []rune(newValue)
+
+	delta := len(newValueRunes) - len(oldValueRunes)
 
 	for i := 0; i < len(occurrences); i++ {
 		index := occurrences[i] + delta*i
@@ -163,18 +166,18 @@ func (s *StringBuilder) Replace(oldValue string, newValue string) {
 		// newValue is smaller than old value
 		// We can insert the slice and remove the overhead
 		if delta < 0 {
-			copy(s.data[index:], []rune(newValue))
-			s.Remove(index+len(newValue), -delta)
+			copy(s.data[index:], newValueRunes)
+			s.Remove(index+len(newValueRunes), -delta)
 		} else if delta == 0 {
 			// Same length -> We can just replace the memory slice
-			copy(s.data[index:], []rune(newValue))
+			copy(s.data[index:], newValueRunes)
 		} else {
 			// newValue is larger than the old value
 			// First add until the old memory region
 			// and insert afterwards the rest
-			x := len(oldValue)
-			copy(s.data[index:], []rune(newValue[:x]))
-			s.Insert(index+len(oldValue), newValue[len(oldValue):])
+			oldLen := len(oldValueRunes)
+			copy(s.data[index:], []rune(newValueRunes[:oldLen]))
+			s.Insert(index+oldLen, string(newValueRunes[len(oldValueRunes):]))
 		}
 	}
 }

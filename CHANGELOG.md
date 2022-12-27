@@ -6,6 +6,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Fixed
+- Fixed a bug where find and friends and Replace did not work properly with umlauts or 2 (or more) byte character 
+
 ## [0.5.0] - 2022-12-26
 
 ### Added
