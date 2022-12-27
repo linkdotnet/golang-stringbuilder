@@ -22,12 +22,13 @@ func NewStringBuilderFromString(text string) *StringBuilder {
 
 // Appends a text to the StringBuilder instance
 func (s *StringBuilder) Append(text string) {
-	newLen := s.position + len(text)
+	textRunes := []rune(text)
+	newLen := s.position + len(textRunes)
 	if newLen > cap(s.data) {
 		s.grow(newLen)
 	}
 
-	copy(s.data[s.position:], []rune(text))
+	copy(s.data[s.position:], textRunes)
 	s.position = newLen
 }
 

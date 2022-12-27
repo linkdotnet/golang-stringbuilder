@@ -6,23 +6,44 @@ import (
 )
 
 func TestAppend(t *testing.T) {
-	const expected string = "Hello World"
-	sb := StringBuilder{}
+	tests := []struct {
+		want string
+	}{
+		{"Hello World"},
+		{"Hallöchen"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.want, func(t *testing.T) {
+			s := &StringBuilder{}
 
-	sb.Append(expected)
+			s.Append(tt.want)
 
-	if result := sb.ToString(); result != expected {
-		t.Errorf("Actual %q, Expected: %q", result, expected)
+			if got := s.ToString(); got != tt.want {
+				t.Errorf("StringBuilder.Append() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
 
 func TestLen(t *testing.T) {
-	sb := StringBuilder{}
+	tests := []struct {
+		name  string
+		input string
+		want  int
+	}{
+		{"English word", "Hello", 5},
+		{"Word with Umlaut", "Hallöchen", 9},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			s := &StringBuilder{}
 
-	sb.Append("1234")
+			s.Append(tt.input)
 
-	if len := sb.Len(); len != 4 {
-		t.Errorf("Actual %q, Expected: %q", len, 4)
+			if got := s.Len(); got != tt.want {
+				t.Errorf("StringBuilder.Append() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
 
@@ -58,7 +79,7 @@ func TestToStringEmptyBuilder(t *testing.T) {
 }
 
 func TestNewFromString(t *testing.T) {
-	const expected string = "Hello"
+	const expected string = "Hellöchen"
 
 	sb := NewStringBuilderFromString(expected)
 
@@ -298,6 +319,7 @@ func TestReplace(t *testing.T) {
 		{"Replace Hello with Hallochen", "Hello World", "Hello", "Hallochen", "Hallochen World"},
 		{"Replace Hello with Hallöchen", "Hello World", "Hello", "Hallöchen", "Hallöchen World"},
 		{"Replace ö with ä", "äö", "ö", "ä", "ää"},
+		{"Replace with same word", "Hello", "llo", "llo", "Hello"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -6,6 +6,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Fixed
+- Fixed a bug where `Append` and `AppendLine` could not handle umlauts
+
 ## [0.5.1] - 2022-12-27
 
 ### Fixed
