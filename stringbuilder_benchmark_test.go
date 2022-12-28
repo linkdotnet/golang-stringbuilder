@@ -35,7 +35,7 @@ func BenchmarkGoStringBuilderConcat(b *testing.B) {
 }
 
 func benchmarkStringBuilderConcat(text string, count int) string {
-	s := &StringBuilder{}
+	s := NewStringBuilder(64)
 	for i := 0; i < count; i++ {
 		s.Append(text)
 	}
