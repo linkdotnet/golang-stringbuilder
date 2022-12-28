@@ -81,7 +81,7 @@ func (s *StringBuilder) Remove(start int, length int) error {
 	}
 
 	x := start + length
-	s.data = append(s.data[:start], s.data[x:]...)
+	copy(s.data[start:], s.data[x:])
 	s.position -= length
 
 	return nil
@@ -96,12 +96,13 @@ func (s *StringBuilder) Insert(index int, text string) error {
 		return fmt.Errorf("can't write outside the buffer")
 	}
 
-	newLen := s.position + len(text)
+	runeText := []rune(text)
+	newLen := s.position + len(runeText)
 	if newLen >= cap(s.data) {
 		s.grow(newLen)
 	}
 
-	s.data = append(s.data[:index], append([]rune(text), s.data[index:]...)...)
+	s.data = append(s.data[:index], append(runeText, s.data[index:]...)...)
 	s.position = newLen
 
 	return nil
