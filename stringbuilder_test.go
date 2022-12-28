@@ -1,6 +1,7 @@
 package Text
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -331,6 +332,19 @@ func TestReplace(t *testing.T) {
 				t.Errorf("StringBuilder.FindLast() = %v, want %v", got, tt.want)
 			}
 		})
+	}
+}
+
+func TestWrite(t *testing.T) {
+	const want = "3...2...1..."
+	s := &StringBuilder{}
+
+	for i := 3; i >= 1; i-- {
+		fmt.Fprintf(s, "%d...", i)
+	}
+
+	if got := s.ToString(); got != want {
+		t.Errorf("StringBuilder.Write() = %v, want %v", got, want)
 	}
 }
 

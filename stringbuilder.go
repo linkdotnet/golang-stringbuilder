@@ -184,6 +184,15 @@ func (s *StringBuilder) Replace(oldValue string, newValue string) {
 	}
 }
 
+// Implements the io.Writer interface so the StringBuilder can be used with fmt.Printf
+func (s *StringBuilder) Write(p []byte) (int, error) {
+	before := s.Len()
+	s.Append(string(p))
+	delta := before - s.Len()
+
+	return delta, nil
+}
+
 func (s *StringBuilder) grow(lenToAdd int) {
 	// Grow times 2 until lenToAdd fits
 	newLen := len(s.data)

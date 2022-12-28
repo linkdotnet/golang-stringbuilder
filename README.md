@@ -37,3 +37,29 @@ sb := NewStringBuilderFromString("Hello World")
 sb.Insert(5, " my dear")
 output := sb.ToString() // Hello my dear World
 ```
+
+The `StringBuilder` also implements the `io.Writer` interface so it can be use with `fmt.Fprintf` and friends:
+```golang
+s := &StringBuilder{}
+
+for i := 3; i >= 1; i-- {
+	fmt.Fprintf(s, "%d...", i)
+}
+
+s.Append("lift off")
+fmt.PrintLn(s.ToString()) // Prints 3...2...1...lift off
+```
+
+## Benchmark
+Check out the implementation of the benchmark in the corresponding file. Here are some results:
+```no-class
+goos: darwin
+goarch: arm64
+pkg: github.com/linkdotnet/golang-stringbuilder
+BenchmarkStringBuilderConcat
+BenchmarkStringBuilderConcat-10           343710              3394 ns/op            4352 B/op          5 allocs/op
+BenchmarkStringConcat
+BenchmarkStringConcat-10                 1000000              1113 ns/op            6720 B/op         24 allocs/op
+BenchmarkGoStringBuilderConcat
+BenchmarkGoStringBuilderConcat-10        4204142               278.4 ns/op          1448 B/op          6 allocs/op
+```

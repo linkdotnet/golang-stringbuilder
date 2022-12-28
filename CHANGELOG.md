@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+
+- Implemented the `io.Writer` interface so it can be used with the `fmt` package
+
 ## [0.5.3] - 2022-12-28
 
 ### Changed
