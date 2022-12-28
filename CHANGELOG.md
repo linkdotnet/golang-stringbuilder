@@ -6,13 +6,15 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [0.6.0] - 2022-12-28
+
 ### Added
 
-- Implemented the `io.Writer` interface so it can be used with the `fmt` package
+-   Implemented the `io.Writer` interface so it can be used with the `fmt` package
 
 ## [0.5.3] - 2022-12-28
 
-### Changed
+\### Changed
 
 -   Smaller internal refactorings
 
@@ -68,7 +70,9 @@ This is the initial release for the `StringBuilder`.
 
 -   `StringBuilder` with some major methods like (`Insert`, `Remove`, `Append`)
 
-[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.5.3...HEAD
+[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.6.0...HEAD
+
+[0.6.0]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.5.3...0.6.0
 
 [0.5.3]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.5.2...0.5.3
 
