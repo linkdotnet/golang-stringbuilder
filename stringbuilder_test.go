@@ -348,6 +348,14 @@ func TestWrite(t *testing.T) {
 	}
 }
 
+func TestWriteReturnsAddedAmount(t *testing.T) {
+	s := &StringBuilder{}
+
+	if got, _ := fmt.Fprintf(s, "%v", "Hello"); got != 5 {
+		t.Errorf("StringBuilder.Write() = %v, want %v", got, 5)
+	}
+}
+
 func slicesEqual(a []int, b []int) bool {
 	if len(a) != len(b) {
 		return false

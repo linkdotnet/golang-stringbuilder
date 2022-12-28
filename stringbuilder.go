@@ -188,7 +188,7 @@ func (s *StringBuilder) Replace(oldValue string, newValue string) {
 func (s *StringBuilder) Write(p []byte) (int, error) {
 	before := s.Len()
 	s.Append(string(p))
-	delta := before - s.Len()
+	delta := s.Len() - before
 
 	return delta, nil
 }
