@@ -6,8 +6,11 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
-### Changed
-- Smaller internal refactorings
+## [0.5.3] - 2022-12-28
+
+\### Changed
+
+-   Smaller internal refactorings
 
 ## [0.5.2] - 2022-12-27
 
@@ -61,7 +64,9 @@ This is the initial release for the `StringBuilder`.
 
 -   `StringBuilder` with some major methods like (`Insert`, `Remove`, `Append`)
 
-[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.5.2...HEAD
+[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.5.3...HEAD
+
+[0.5.3]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.5.2...0.5.3
 
 [0.5.2]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.5.1...0.5.2
 
