@@ -186,9 +186,9 @@ func (s *StringBuilder) Replace(oldValue string, newValue string) {
 
 func (s *StringBuilder) grow(lenToAdd int) {
 	// Grow times 2 until lenToAdd fits
-	newLen := cap(s.data)
+	newLen := len(s.data)
 
-	if cap(s.data) == 0 {
+	if newLen == 0 {
 		newLen = 8
 	}
 

@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-const text = "Hello dear World"
+const text = "Hello my dear World."
 const count = 25
 
 var result string
