@@ -206,7 +206,5 @@ func (s *StringBuilder) grow(lenToAdd int) {
 		newLen = newLen * 2
 	}
 
-	new := make([]rune, newLen)
-	copy(new, s.data)
-	s.data = new
+	s.data = append(s.data, make([]rune, newLen-len(s.data))...)
 }
