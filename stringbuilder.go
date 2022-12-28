@@ -14,9 +14,10 @@ func NewStringBuilder(initialCapacity int) *StringBuilder {
 
 // Creates a new instance of the StringBuilder with a preallocated text
 func NewStringBuilderFromString(text string) *StringBuilder {
+	textRunes := []rune(text)
 	return &StringBuilder{
-		data:     []rune(text),
-		position: len([]rune(text)),
+		data:     textRunes,
+		position: len(textRunes),
 	}
 }
 

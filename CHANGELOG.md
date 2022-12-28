@@ -20,7 +20,7 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [0.5.3] - 2022-12-28
 
-\### Changed
+### Changed
 
 -   Smaller internal refactorings
 
