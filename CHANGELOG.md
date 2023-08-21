@@ -6,9 +6,11 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
-### Added
+## [0.7.0] - 2023-08-21
 
-- The string builder can be used in chaining operations. `sb.Append("Hello").Append(" ").Append("World")`
+\### Added
+
+-   The string builder can be used in chaining operations. `sb.Append("Hello").Append(" ").Append("World")`
 
 ## [0.6.1] - 2022-12-28
 
@@ -24,7 +26,7 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [0.5.3] - 2022-12-28
 
-### Changed
+\### Changed
 
 -   Smaller internal refactorings
 
@@ -80,7 +82,9 @@ This is the initial release for the `StringBuilder`.
 
 -   `StringBuilder` with some major methods like (`Insert`, `Remove`, `Append`)
 
-[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.6.1...HEAD
+[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.7.0...HEAD
+
+[0.7.0]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.6.1...0.7.0
 
 [0.6.1]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.6.0...0.6.1
 
