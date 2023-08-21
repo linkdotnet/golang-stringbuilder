@@ -22,7 +22,7 @@ func NewStringBuilderFromString(text string) *StringBuilder {
 }
 
 // Appends a text to the StringBuilder instance
-func (s *StringBuilder) Append(text string) {
+func (s *StringBuilder) Append(text string) *StringBuilder {
 	textRunes := []rune(text)
 	newLen := s.position + len(textRunes)
 	if newLen > cap(s.data) {
@@ -31,16 +31,20 @@ func (s *StringBuilder) Append(text string) {
 
 	copy(s.data[s.position:], textRunes)
 	s.position = newLen
+
+	return s
 }
 
 // Appends a text and a new line character to the StringBuilder instance
-func (s *StringBuilder) AppendLine(text string) {
+func (s *StringBuilder) AppendLine(text string) *StringBuilder {
 	s.Append(text)
 	s.Append("\n")
+
+	return s
 }
 
 // Appends a single character to the StringBuilder instance
-func (s *StringBuilder) AppendRune(char rune) {
+func (s *StringBuilder) AppendRune(char rune) *StringBuilder {
 	newLen := s.position + 1
 	if newLen > cap(s.data) {
 		s.grow(newLen)
@@ -48,6 +52,8 @@ func (s *StringBuilder) AppendRune(char rune) {
 
 	s.data[s.position] = char
 	s.position++
+
+	return s
 }
 
 // Returns the current length of the represented string
@@ -60,41 +66,41 @@ func (s *StringBuilder) ToString() string {
 	return string(s.data[:s.position])
 }
 
-func (s *StringBuilder) Remove(start int, length int) error {
+func (s *StringBuilder) Remove(start int, length int) (*StringBuilder, error) {
 	if start >= s.position {
-		return fmt.Errorf("start is after the end of the string")
+		return s, fmt.Errorf("start is after the end of the string")
 	}
 	if start < 0 {
-		return fmt.Errorf("start can't be a negative value")
+		return s, fmt.Errorf("start can't be a negative value")
 	}
 	if length < 0 {
-		return fmt.Errorf("length can't be a negative value")
+		return s, fmt.Errorf("length can't be a negative value")
 	}
 
 	endIndex := start + length - 1
 
 	if endIndex > s.position {
-		return fmt.Errorf("can't delete after the end of the string")
+		return s, fmt.Errorf("can't delete after the end of the string")
 	}
 
 	if length == 0 {
-		return nil
+		return s, nil
 	}
 
 	x := start + length
 	copy(s.data[start:], s.data[x:])
 	s.position -= length
 
-	return nil
+	return s, nil
 }
 
-func (s *StringBuilder) Insert(index int, text string) error {
+func (s *StringBuilder) Insert(index int, text string) (*StringBuilder, error) {
 	if index < 0 {
-		return fmt.Errorf("index can't be negative")
+		return s, fmt.Errorf("index can't be negative")
 	}
 
 	if index > s.position {
-		return fmt.Errorf("can't write outside the buffer")
+		return s, fmt.Errorf("can't write outside the buffer")
 	}
 
 	runeText := []rune(text)
@@ -106,7 +112,7 @@ func (s *StringBuilder) Insert(index int, text string) error {
 	s.data = append(s.data[:index], append(runeText, s.data[index:]...)...)
 	s.position = newLen
 
-	return nil
+	return s, nil
 }
 
 // Removes all characters from the current instance. This sets the internal size to 0.
@@ -142,18 +148,20 @@ func (s *StringBuilder) FindAll(text string) []int {
 }
 
 // Replaces all occurrences of oldValue with newValue
-func (s *StringBuilder) ReplaceRune(oldValue rune, newValue rune) {
+func (s *StringBuilder) ReplaceRune(oldValue rune, newValue rune) *StringBuilder {
 	occurrences := s.FindAll(string(oldValue))
 
 	for _, v := range occurrences {
 		s.data[v] = newValue
 	}
+
+	return s
 }
 
 // Replaces all occurrences of oldValue with newValue
-func (s *StringBuilder) Replace(oldValue string, newValue string) {
+func (s *StringBuilder) Replace(oldValue string, newValue string) *StringBuilder {
 	if oldValue == newValue {
-		return
+		return s
 	}
 
 	occurrences := s.FindAll(oldValue)
@@ -183,6 +191,8 @@ func (s *StringBuilder) Replace(oldValue string, newValue string) {
 			s.Insert(index+oldLen, string(newValueRunes[len(oldValueRunes):]))
 		}
 	}
+
+	return s
 }
 
 // Implements the io.Writer interface so the StringBuilder can be used with fmt.Printf
