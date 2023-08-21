@@ -66,41 +66,41 @@ func (s *StringBuilder) ToString() string {
 	return string(s.data[:s.position])
 }
 
-func (s *StringBuilder) Remove(start int, length int) (*StringBuilder, error) {
+func (s *StringBuilder) Remove(start int, length int) error {
 	if start >= s.position {
-		return s, fmt.Errorf("start is after the end of the string")
+		return fmt.Errorf("start is after the end of the string")
 	}
 	if start < 0 {
-		return s, fmt.Errorf("start can't be a negative value")
+		return fmt.Errorf("start can't be a negative value")
 	}
 	if length < 0 {
-		return s, fmt.Errorf("length can't be a negative value")
+		return fmt.Errorf("length can't be a negative value")
 	}
 
 	endIndex := start + length - 1
 
 	if endIndex > s.position {
-		return s, fmt.Errorf("can't delete after the end of the string")
+		return fmt.Errorf("can't delete after the end of the string")
 	}
 
 	if length == 0 {
-		return s, nil
+		return nil
 	}
 
 	x := start + length
 	copy(s.data[start:], s.data[x:])
 	s.position -= length
 
-	return s, nil
+	return nil
 }
 
-func (s *StringBuilder) Insert(index int, text string) (*StringBuilder, error) {
+func (s *StringBuilder) Insert(index int, text string) error {
 	if index < 0 {
-		return s, fmt.Errorf("index can't be negative")
+		return fmt.Errorf("index can't be negative")
 	}
 
 	if index > s.position {
-		return s, fmt.Errorf("can't write outside the buffer")
+		return fmt.Errorf("can't write outside the buffer")
 	}
 
 	runeText := []rune(text)
@@ -112,7 +112,7 @@ func (s *StringBuilder) Insert(index int, text string) (*StringBuilder, error) {
 	s.data = append(s.data[:index], append(runeText, s.data[index:]...)...)
 	s.position = newLen
 
-	return s, nil
+	return nil
 }
 
 // Removes all characters from the current instance. This sets the internal size to 0.
