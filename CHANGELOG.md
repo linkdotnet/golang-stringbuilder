@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+
+- The string builder can be used in chaining operations. `sb.Append("Hello").Append(" ").Append("World")`
+
 ## [0.6.1] - 2022-12-28
 
 ### Fixed
