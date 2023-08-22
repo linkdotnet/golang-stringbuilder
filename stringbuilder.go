@@ -1,6 +1,9 @@
 package Text
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type StringBuilder struct {
 	data     []rune
@@ -19,6 +22,10 @@ func NewStringBuilderFromString(text string) *StringBuilder {
 		data:     textRunes,
 		position: len(textRunes),
 	}
+}
+
+type SupportedTypes interface {
+	string | int
 }
 
 // Appends a text to the StringBuilder instance
@@ -53,6 +60,21 @@ func (s *StringBuilder) AppendRune(char rune) *StringBuilder {
 	s.data[s.position] = char
 	s.position++
 
+	return s
+}
+
+func (s *StringBuilder) AppendInt(integer int) *StringBuilder {
+	return s.Append(strconv.Itoa(integer))
+}
+
+func (s *StringBuilder) AppendBoolean(flag bool) *StringBuilder {
+	return s.Append(strconv.FormatBool(flag))
+}
+
+func (s *StringBuilder) AppendList(words []string) *StringBuilder {
+	for _, word := range words {
+		s = s.Append(word)
+	}
 	return s
 }
 

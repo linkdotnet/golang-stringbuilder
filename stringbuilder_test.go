@@ -26,6 +26,27 @@ func TestAppend(t *testing.T) {
 	}
 }
 
+func TestAppendMultipleTypes(t *testing.T) {
+	tests := []struct {
+		stringInput     string
+		intInput        int
+		booleanInput    bool
+		multipleStrings []string
+		want            string
+	}{
+		{"hello", 123, false, []string{"a", "b", "c"}, "hello123falseabc"},
+		{"hello", 123, true, []string{"a", "b", "c"}, "hello123trueabc"},
+	}
+	for _, tt := range tests {
+		s := &StringBuilder{}
+		s.Append(tt.stringInput).AppendInt(tt.intInput).AppendBoolean(tt.booleanInput).AppendList(tt.multipleStrings)
+
+		if got := s.ToString(); got != tt.want {
+			t.Errorf("StringBuilder.Append Multiple types = %v, want %v", got, tt.want)
+		}
+	}
+}
+
 func TestLen(t *testing.T) {
 	tests := []struct {
 		name  string
