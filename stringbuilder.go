@@ -59,14 +59,17 @@ func (s *StringBuilder) AppendRune(char rune) *StringBuilder {
 	return s
 }
 
+// Appends a single integer to the StringBuilder instance
 func (s *StringBuilder) AppendInt(integer int) *StringBuilder {
 	return s.Append(strconv.Itoa(integer))
 }
 
+// Appends a single boolean to the StringBuilder instance
 func (s *StringBuilder) AppendBoolean(flag bool) *StringBuilder {
 	return s.Append(strconv.FormatBool(flag))
 }
 
+// Appends a list of strings to the StringBuilder instance
 func (s *StringBuilder) AppendList(words []string) *StringBuilder {
 	for _, word := range words {
 		s = s.Append(word)
