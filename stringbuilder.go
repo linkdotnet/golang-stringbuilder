@@ -24,10 +24,6 @@ func NewStringBuilderFromString(text string) *StringBuilder {
 	}
 }
 
-type SupportedTypes interface {
-	string | int
-}
-
 // Appends a text to the StringBuilder instance
 func (s *StringBuilder) Append(text string) *StringBuilder {
 	textRunes := []rune(text)
