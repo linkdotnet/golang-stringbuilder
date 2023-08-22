@@ -26,14 +26,10 @@ func NewStringBuilderFromString(text string) *StringBuilder {
 
 // Appends a text to the StringBuilder instance
 func (s *StringBuilder) Append(text string) *StringBuilder {
+	s.resize(text)
 	textRunes := []rune(text)
-	newLen := s.position + len(textRunes)
-	if newLen > cap(s.data) {
-		s.grow(newLen)
-	}
-
 	copy(s.data[s.position:], textRunes)
-	s.position = newLen
+	s.position = s.position + len(textRunes)
 
 	return s
 }
@@ -52,7 +48,6 @@ func (s *StringBuilder) AppendRune(char rune) *StringBuilder {
 	if newLen > cap(s.data) {
 		s.grow(newLen)
 	}
-
 	s.data[s.position] = char
 	s.position++
 
@@ -65,16 +60,28 @@ func (s *StringBuilder) AppendInt(integer int) *StringBuilder {
 }
 
 // Appends a single boolean to the StringBuilder instance
-func (s *StringBuilder) AppendBoolean(flag bool) *StringBuilder {
+func (s *StringBuilder) AppendBool(flag bool) *StringBuilder {
 	return s.Append(strconv.FormatBool(flag))
 }
 
 // Appends a list of strings to the StringBuilder instance
 func (s *StringBuilder) AppendList(words []string) *StringBuilder {
+	s.resize(words...)
 	for _, word := range words {
 		s = s.Append(word)
 	}
 	return s
+}
+
+func (s *StringBuilder) resize(words ...string) {
+	allWordLength := 0
+	for _, word := range words {
+		allWordLength += len(word)
+	}
+	newLen := s.position + allWordLength
+	if newLen > cap(s.data) {
+		s.grow(newLen)
+	}
 }
 
 // Returns the current length of the represented string

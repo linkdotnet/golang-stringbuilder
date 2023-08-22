@@ -39,7 +39,7 @@ func TestAppendMultipleTypes(t *testing.T) {
 	}
 	for _, tt := range tests {
 		s := &StringBuilder{}
-		s.Append(tt.stringInput).AppendInt(tt.intInput).AppendBoolean(tt.booleanInput).AppendList(tt.multipleStrings)
+		s.Append(tt.stringInput).AppendInt(tt.intInput).AppendBool(tt.booleanInput).AppendList(tt.multipleStrings)
 
 		if got := s.ToString(); got != tt.want {
 			t.Errorf("StringBuilder.Append Multiple types = %v, want %v", got, tt.want)
