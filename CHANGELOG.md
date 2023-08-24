@@ -6,8 +6,11 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
-### Added 
- - The string builder can now be used to append integers, boolean & collection of strings. `sb.AppendInt(1).AppendBool(true).AppendList([]string{"a", "b", "c"})`
+## [0.8.0] - 2023-08-24
+
+### Added
+
+-   The string builder can now be used to append integers, boolean & collection of strings. `sb.AppendInt(1).AppendBool(true).AppendList([]string{"a", "b", "c"})`
 
 ## [0.7.0] - 2023-08-21
 
@@ -85,7 +88,9 @@ This is the initial release for the `StringBuilder`.
 
 -   `StringBuilder` with some major methods like (`Insert`, `Remove`, `Append`)
 
-[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.7.0...HEAD
+[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.8.0...HEAD
+
+[0.8.0]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.7.0...0.8.0
 
 [0.7.0]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.6.1...0.7.0
 
