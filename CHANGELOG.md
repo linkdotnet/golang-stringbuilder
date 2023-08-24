@@ -6,6 +6,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added 
+ - The string builder can now be used to append integers, boolean & collection of strings. `sb.AppendInt(1).AppendBool(true).AppendList([]string{"a", "b", "c"})`
+
 ## [0.7.0] - 2023-08-21
 
 \### Added
