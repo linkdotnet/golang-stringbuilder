@@ -232,6 +232,72 @@ func (s *StringBuilder) Write(p []byte) (int, error) {
 	return delta, nil
 }
 
+// Trims the given characters from the start and end of the string builder or all whitespaces if no characters are given
+func (s *StringBuilder) Trim(chars ...rune) *StringBuilder {
+	return s.TrimStart(chars...).TrimEnd(chars...)
+}
+
+// Trims the given characters from the start of the string builder or all whitespaces if no characters are given
+func (s *StringBuilder) TrimStart(chars ...rune) *StringBuilder {
+	start := 0
+	trimSet := make(map[rune]bool)
+
+	if len(chars) == 0 {
+		for _, ch := range s.data[:s.position] {
+			if !isWhitespace(ch) {
+				break
+			}
+			start++
+		}
+	} else {
+		for _, ch := range chars {
+			trimSet[ch] = true
+		}
+		for _, ch := range s.data[:s.position] {
+			if _, exists := trimSet[ch]; !exists {
+				break
+			}
+			start++
+		}
+	}
+
+	if start > 0 {
+		copy(s.data, s.data[start:s.position])
+		s.position -= start
+	}
+
+	return s
+}
+
+// Trims the given characters from the start of the string builder or all whitespaces if no characters are given
+func (s *StringBuilder) TrimEnd(chars ...rune) *StringBuilder {
+	end := s.position
+	trimSet := make(map[rune]bool)
+
+	if len(chars) == 0 {
+		for i := s.position - 1; i >= 0; i-- {
+			if !isWhitespace(s.data[i]) {
+				break
+			}
+			end--
+		}
+	} else {
+		for _, ch := range chars {
+			trimSet[ch] = true
+		}
+		for i := s.position - 1; i >= 0; i-- {
+			if _, exists := trimSet[s.data[i]]; !exists {
+				break
+			}
+			end--
+		}
+	}
+
+	s.position = end
+
+	return s
+}
+
 func (s *StringBuilder) grow(lenToAdd int) {
 	// Grow times 2 until lenToAdd fits
 	newLen := len(s.data)
@@ -245,4 +311,8 @@ func (s *StringBuilder) grow(lenToAdd int) {
 	}
 
 	s.data = append(s.data, make([]rune, newLen-len(s.data))...)
+}
+
+func isWhitespace(ch rune) bool {
+	return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r'
 }

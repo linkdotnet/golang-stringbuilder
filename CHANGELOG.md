@@ -9,6 +9,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 ## [0.8.0] - 2023-08-24
 
 ### Added
+- `Trim`, `TrimStart`, `TrimEnd` are added to the string builder
+
+### Added
 
 -   The string builder can now be used to append integers, boolean & collection of strings. `sb.AppendInt(1).AppendBool(true).AppendList([]string{"a", "b", "c"})`
 

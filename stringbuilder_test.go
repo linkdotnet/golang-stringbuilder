@@ -377,6 +377,36 @@ func TestWriteReturnsAddedAmount(t *testing.T) {
 	}
 }
 
+func TestTrimStartWithWhitespaces(t *testing.T) {
+	s := NewStringBuilderFromString("   Hello World")
+
+	s.TrimStart()
+
+	if got := s.ToString(); got != "Hello World" {
+		t.Errorf("StringBuilder.TrimStart() = %v, want %v", got, "Hello World")
+	}
+}
+
+func TestTrimStartWithGivenCharacters(t *testing.T) {
+	s := NewStringBuilderFromString("aHello World")
+
+	s.TrimStart('a')
+
+	if got := s.ToString(); got != "Hello World" {
+		t.Errorf("StringBuilder.TrimStart() = %v, want %v", got, "Hello World")
+	}
+}
+
+func TestTrimWithWhitespacesAtTheStartAndEnd(t *testing.T) {
+	s := NewStringBuilderFromString("   Hello World   ")
+
+	s.Trim()
+
+	if got := s.ToString(); got != "Hello World" {
+		t.Errorf("StringBuilder.Trim() = %v, want %v", got, "Hello World")
+	}
+}
+
 func slicesEqual(a []int, b []int) bool {
 	if len(a) != len(b) {
 		return false
