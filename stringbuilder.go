@@ -280,6 +280,15 @@ func (s *StringBuilder) AsRuneArray() []rune {
 	return s.data
 }
 
+// Reverses the characters of a string builder
+func (s *StringBuilder) Reverse() *StringBuilder {
+	for left, right := 0, s.position-1; left < right; left, right = left+1, right-1 {
+		s.data[left], s.data[right] = s.data[right], s.data[left]
+	}
+
+	return s
+}
+
 func (s *StringBuilder) grow(lenToAdd int) {
 	// Grow times 2 until lenToAdd fits
 	newLen := len(s.data)

@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+
+- `Reverse` is added to the string builder
+
 ## [0.9.0] - 2023-08-26
 
 ### Added
