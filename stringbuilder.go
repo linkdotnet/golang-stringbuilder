@@ -240,25 +240,13 @@ func (s *StringBuilder) Trim(chars ...rune) *StringBuilder {
 // Trims the given characters from the start of the string builder or all whitespaces if no characters are given
 func (s *StringBuilder) TrimStart(chars ...rune) *StringBuilder {
 	start := 0
-	trimSet := make(map[rune]bool)
+	trimSet := createTrimSet(chars...)
 
-	if len(chars) == 0 {
-		for _, ch := range s.data[:s.position] {
-			if !isWhitespace(ch) {
-				break
-			}
-			start++
+	for _, ch := range s.data[:s.position] {
+		if _, exists := trimSet[ch]; !exists {
+			break
 		}
-	} else {
-		for _, ch := range chars {
-			trimSet[ch] = true
-		}
-		for _, ch := range s.data[:s.position] {
-			if _, exists := trimSet[ch]; !exists {
-				break
-			}
-			start++
-		}
+		start++
 	}
 
 	if start > 0 {
@@ -272,25 +260,13 @@ func (s *StringBuilder) TrimStart(chars ...rune) *StringBuilder {
 // Trims the given characters from the start of the string builder or all whitespaces if no characters are given
 func (s *StringBuilder) TrimEnd(chars ...rune) *StringBuilder {
 	end := s.position
-	trimSet := make(map[rune]bool)
+	trimSet := createTrimSet(chars...)
 
-	if len(chars) == 0 {
-		for i := s.position - 1; i >= 0; i-- {
-			if !isWhitespace(s.data[i]) {
-				break
-			}
-			end--
+	for i := s.position - 1; i >= 0; i-- {
+		if _, exists := trimSet[s.data[i]]; !exists {
+			break
 		}
-	} else {
-		for _, ch := range chars {
-			trimSet[ch] = true
-		}
-		for i := s.position - 1; i >= 0; i-- {
-			if _, exists := trimSet[s.data[i]]; !exists {
-				break
-			}
-			end--
-		}
+		end--
 	}
 
 	s.position = end
@@ -313,6 +289,19 @@ func (s *StringBuilder) grow(lenToAdd int) {
 	s.data = append(s.data, make([]rune, newLen-len(s.data))...)
 }
 
-func isWhitespace(ch rune) bool {
-	return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r'
+func createTrimSet(chars ...rune) map[rune]bool {
+	trimSet := make(map[rune]bool)
+
+	if len(chars) == 0 {
+		trimSet[' '] = true
+		trimSet['\t'] = true
+		trimSet['\n'] = true
+		trimSet['\r'] = true
+	} else {
+		for _, ch := range chars {
+			trimSet[ch] = true
+		}
+	}
+
+	return trimSet
 }
