@@ -6,9 +6,11 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [0.9.0] - 2023-08-26
+
 ### Added
 
-- `Trim`, `TrimStart`, `TrimEnd` are added to the string builder
+-   `Trim`, `TrimStart`, `TrimEnd` are added to the string builder
 
 ## [0.8.0] - 2023-08-24
 
@@ -92,7 +94,9 @@ This is the initial release for the `StringBuilder`.
 
 -   `StringBuilder` with some major methods like (`Insert`, `Remove`, `Append`)
 
-[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.8.0...HEAD
+[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.9.0...HEAD
+
+[0.9.0]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.8.0...0.9.0
 
 [0.8.0]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.7.0...0.8.0
 
