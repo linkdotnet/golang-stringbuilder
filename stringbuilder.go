@@ -45,7 +45,7 @@ func (s *StringBuilder) AppendLine(text string) *StringBuilder {
 // Appends a single character to the StringBuilder instance
 func (s *StringBuilder) AppendRune(char rune) *StringBuilder {
 	newLen := s.position + 1
-	if newLen > cap(s.data) {
+	if newLen >= cap(s.data) {
 		s.grow(newLen)
 	}
 	s.data[s.position] = char
@@ -79,7 +79,7 @@ func (s *StringBuilder) resize(words ...string) {
 		allWordLength += len(word)
 	}
 	newLen := s.position + allWordLength
-	if newLen > cap(s.data) {
+	if newLen >= cap(s.data) {
 		s.grow(newLen)
 	}
 }
@@ -272,6 +272,12 @@ func (s *StringBuilder) TrimEnd(chars ...rune) *StringBuilder {
 	s.position = end
 
 	return s
+}
+
+// Returns the internal array of the string builder. Be careful as this returns the internal slice.
+// Changes to that will reflect in this string builder instance.
+func (s *StringBuilder) AsRuneArray() []rune {
+	return s.data
 }
 
 func (s *StringBuilder) grow(lenToAdd int) {
