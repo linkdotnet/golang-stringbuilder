@@ -7,10 +7,8 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 ## [Unreleased]
 
 ### Added
-- `Trim`, `TrimStart`, `TrimEnd` are added to the string builder
 
-### Fixed
-- Sometimes the grow mechanism did not work properly leading to a panic
+- `Trim`, `TrimStart`, `TrimEnd` are added to the string builder
 
 ## [0.8.0] - 2023-08-24
 
