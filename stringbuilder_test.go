@@ -407,6 +407,43 @@ func TestTrimWithWhitespacesAtTheStartAndEnd(t *testing.T) {
 	}
 }
 
+func TestReverseStringBuilder(t *testing.T) {
+	tests := []struct {
+		name   string
+		insert []string
+		want   string
+	}{
+		{"Reverse odd length string builder", []string{"A", "B", "C"}, "CBA"},
+		{"Reverse even length string builder", []string{"A", "B"}, "BA"},
+		{"Reverse string builder of size 1", []string{"A"}, "A"},
+		{"Reverse empty string builder", []string{}, ""},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			sb := &StringBuilder{}
+
+			for _, s := range tt.insert {
+				sb = sb.Append(s)
+			}
+
+			sb = sb.Reverse()
+
+			if got := sb.ToString(); got != tt.want {
+				t.Errorf("StringBuilder.Reverse() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestReuseReversedStringBuilder(t *testing.T) {
+	sb := StringBuilder{}
+
+	sb = *sb.Append("A").Append("B").Append("C").Reverse().Append("X")
+	if got := sb.ToString(); got != "CBAX" {
+		t.Errorf("StringBuilder.Reverse() = %v, want %v", got, "CBAX")
+	}
+}
+
 func slicesEqual(a []int, b []int) bool {
 	if len(a) != len(b) {
 		return false
