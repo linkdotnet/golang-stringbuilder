@@ -79,7 +79,7 @@ func (s *StringBuilder) resize(words ...string) {
 		allWordLength += len(word)
 	}
 	newLen := s.position + allWordLength
-	if newLen >= cap(s.data) {
+	if newLen > cap(s.data) {
 		s.grow(newLen)
 	}
 }
