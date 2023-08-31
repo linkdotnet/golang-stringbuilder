@@ -289,6 +289,19 @@ func (s *StringBuilder) Reverse() *StringBuilder {
 	return s
 }
 
+// Substring creates a substring from the string builder using a start and an end(exclusive) bound
+func (s *StringBuilder) Substring(start, end int) (string, error) {
+	if start < 0 {
+		return "", fmt.Errorf("start should always be greater than or equal to zero")
+	}
+	if end > s.position {
+		return "", fmt.Errorf("end cannot be greater than the length of string builder")
+	}
+	r := make([]rune, end-start)
+	copy(r, s.data[start:end])
+	return string(r), nil
+}
+
 func (s *StringBuilder) grow(lenToAdd int) {
 	// Grow times 2 until lenToAdd fits
 	newLen := len(s.data)
