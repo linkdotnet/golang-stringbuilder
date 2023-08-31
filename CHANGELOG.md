@@ -6,10 +6,12 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [0.10.0] - 2023-08-31
+
 ### Added
 
-- `Reverse` is added to the string builder
-- `Substring` is added to the string builder
+-   `Reverse` is added to the string builder
+-   `Substring` is added to the string builder
 
 ## [0.9.0] - 2023-08-26
 
@@ -99,7 +101,9 @@ This is the initial release for the `StringBuilder`.
 
 -   `StringBuilder` with some major methods like (`Insert`, `Remove`, `Append`)
 
-[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.9.0...HEAD
+[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.10.0...HEAD
+
+[0.10.0]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.9.0...0.10.0
 
 [0.9.0]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.8.0...0.9.0
 
