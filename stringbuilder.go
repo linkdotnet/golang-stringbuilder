@@ -289,6 +289,22 @@ func (s *StringBuilder) Reverse() *StringBuilder {
 	return s
 }
 
+// Returns a substring from start (inclusive) to end (exclusive).
+func (s *StringBuilder) Substring(start, end int) (string, error) {
+	if start < 0 {
+		return "", fmt.Errorf("start should always be greater than or equal to zero")
+	}
+	if end > s.position {
+		return "", fmt.Errorf("end cannot be greater than the length of string builder")
+	}
+	if start > end {
+		return "", fmt.Errorf("start cannot be greater than the end for Substring() function")
+	}
+	r := make([]rune, end-start)
+	copy(r, s.data[start:end])
+	return string(r), nil
+}
+
 func (s *StringBuilder) grow(lenToAdd int) {
 	// Grow times 2 until lenToAdd fits
 	newLen := len(s.data)

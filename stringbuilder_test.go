@@ -444,6 +444,40 @@ func TestReuseReversedStringBuilder(t *testing.T) {
 	}
 }
 
+func TestStringBuilderSubstring(t *testing.T) {
+	tests := []struct {
+		name         string
+		start        int
+		end          int
+		substring    string
+		errorMessage string
+	}{
+		{"Substring with negative start", -1, 3, "", "start should always be greater than or equal to zero"},
+		{"Substring with end exceeding string builder length", 0, 5, "", "end cannot be greater than the length of string builder"},
+		{"Substring with start greater than end", 3, 2, "", "start cannot be greater than the end for Substring() function"},
+		{"Substring with start equal to zero", 0, 3, "abc", ""},
+		{"Substring with end equal to length of string builder", 0, 4, "abcd", ""},
+		{"Substring of length 1", 0, 1, "a", ""},
+		{"Substring of length 0", 0, 0, "", ""},
+		{"Substring in middle of string builder", 1, 3, "bc", ""},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			sb := NewStringBuilderFromString("abcd")
+			s, err := sb.Substring(tt.start, tt.end)
+			if err != nil {
+				if err.Error() != tt.errorMessage {
+					t.Errorf("StringBuilder.Substring() expected error message = %v, got = %v", tt.errorMessage, err.Error())
+				}
+
+			}
+			if s != tt.substring {
+				t.Errorf("StringBuilder.Substring() expected substring = %v, got = %v", tt.substring, s)
+			}
+		})
+	}
+}
+
 func slicesEqual(a []int, b []int) bool {
 	if len(a) != len(b) {
 		return false
