@@ -454,6 +454,7 @@ func TestStringBuilderSubstring(t *testing.T) {
 	}{
 		{"Substring with negative start", -1, 3, "", "start should always be greater than or equal to zero"},
 		{"Substring with end exceeding string builder length", 0, 5, "", "end cannot be greater than the length of string builder"},
+		{"Substring with start greater than end", 3, 2, "", "start cannot be greater than the end for Substring() function"},
 		{"Substring with start equal to zero", 0, 3, "abc", ""},
 		{"Substring with end equal to length of string builder", 0, 4, "abcd", ""},
 		{"Substring of length 1", 0, 1, "a", ""},
