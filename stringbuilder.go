@@ -322,18 +322,21 @@ func (s *StringBuilder) grow(lenToAdd int) {
 	s.data = append(s.data, make([]rune, newLen-len(s.data))...)
 }
 
-func createTrimSet(chars ...rune) map[rune]bool {
-	trimSet := make(map[rune]bool)
+var defaultTrimSet = map[rune]bool{
+	' ':  true,
+	'\t': true,
+	'\n': true,
+	'\r': true,
+}
 
+func createTrimSet(chars ...rune) map[rune]bool {
 	if len(chars) == 0 {
-		trimSet[' '] = true
-		trimSet['\t'] = true
-		trimSet['\n'] = true
-		trimSet['\r'] = true
-	} else {
-		for _, ch := range chars {
-			trimSet[ch] = true
-		}
+		return defaultTrimSet
+	}
+
+	trimSet := make(map[rune]bool)
+	for _, ch := range chars {
+		trimSet[ch] = true
 	}
 
 	return trimSet
