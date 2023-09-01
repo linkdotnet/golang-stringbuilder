@@ -6,6 +6,10 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Changed
+
+- The builder can handle multibyte characters (like emojis)
+
 ## [0.10.0] - 2023-08-31
 
 ### Added
@@ -27,7 +31,7 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [0.7.0] - 2023-08-21
 
-\### Added
+### Added
 
 -   The string builder can be used in chaining operations. `sb.Append("Hello").Append(" ").Append("World")`
 
