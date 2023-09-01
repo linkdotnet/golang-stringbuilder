@@ -12,6 +12,7 @@ func TestAppend(t *testing.T) {
 	}{
 		{"Hello World"},
 		{"Hallöchen"},
+		{"🌍🌍🌍🌍🌍🌍"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.want, func(t *testing.T) {
@@ -181,15 +182,34 @@ func TestRemoveInTheMiddle(t *testing.T) {
 }
 
 func TestInsertAtIndex(t *testing.T) {
-	const expected string = "Hello my dear and beautiful World"
-	sb := NewStringBuilderFromString("Hello World")
-
-	if err := sb.Insert(5, " my dear and beautiful"); err != nil {
-		t.Errorf("Insert threw an error: %v", err)
+	tests := []struct {
+		initial  string
+		insertAt int
+		insert   string
+		expected string
+	}{
+		{
+			initial:  "Hello World",
+			insertAt: 5,
+			insert:   " my dear and beautiful",
+			expected: "Hello my dear and beautiful World",
+		},
+		{
+			initial:  "Hello",
+			insertAt: 5,
+			insert:   " 🌍",
+			expected: "Hello 🌍",
+		},
 	}
 
-	if result := sb.ToString(); result != expected {
-		t.Errorf("Actual %q, Expected: %q", result, expected)
+	for _, tt := range tests {
+		sb := NewStringBuilderFromString(tt.initial)
+		if err := sb.Insert(tt.insertAt, tt.insert); err != nil {
+			t.Errorf("Insert threw an error: %v", err)
+		}
+		if result := sb.ToString(); result != tt.expected {
+			t.Errorf("Actual %q, Expected: %q", result, tt.expected)
+		}
 	}
 }
 
@@ -261,6 +281,8 @@ func TestFindFirst(t *testing.T) {
 		{"Needle longer than haystack", "a", "ab", -1},
 		{"Hello in Hello World", "Hello World", "Hello", 0},
 		{"ö in Helöö", "Hellöö", "ö", 4},
+		{"Find after Multibyte", "A🌍C", "C", 2},
+		{"Find Multibyte", "A🌍C🇨🇭", "🇨🇭", 3},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

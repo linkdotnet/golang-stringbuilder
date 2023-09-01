@@ -26,8 +26,11 @@ func NewStringBuilderFromString(text string) *StringBuilder {
 
 // Appends a text to the StringBuilder instance
 func (s *StringBuilder) Append(text string) *StringBuilder {
-	s.resize(text)
 	textRunes := []rune(text)
+	requiredLen := s.position + len(textRunes)
+	if requiredLen > cap(s.data) {
+		s.grow(requiredLen)
+	}
 	copy(s.data[s.position:], textRunes)
 	s.position = s.position + len(textRunes)
 
@@ -76,7 +79,7 @@ func (s *StringBuilder) AppendList(words []string) *StringBuilder {
 func (s *StringBuilder) resize(words ...string) {
 	allWordLength := 0
 	for _, word := range words {
-		allWordLength += len(word)
+		allWordLength += len([]rune(word))
 	}
 	newLen := s.position + allWordLength
 	if newLen > cap(s.data) {
@@ -105,8 +108,7 @@ func (s *StringBuilder) Remove(start int, length int) error {
 		return fmt.Errorf("length can't be a negative value")
 	}
 
-	endIndex := start + length - 1
-
+	endIndex := start + length
 	if endIndex > s.position {
 		return fmt.Errorf("can't delete after the end of the string")
 	}
@@ -115,8 +117,7 @@ func (s *StringBuilder) Remove(start int, length int) error {
 		return nil
 	}
 
-	x := start + length
-	copy(s.data[start:], s.data[x:])
+	copy(s.data[start:], s.data[endIndex:s.position])
 	s.position -= length
 
 	return nil
@@ -137,7 +138,8 @@ func (s *StringBuilder) Insert(index int, text string) error {
 		s.grow(newLen)
 	}
 
-	s.data = append(s.data[:index], append(runeText, s.data[index:]...)...)
+	copy(s.data[index+len(runeText):], s.data[index:s.position])
+	copy(s.data[index:], runeText)
 	s.position = newLen
 
 	return nil
