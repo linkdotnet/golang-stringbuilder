@@ -12,6 +12,7 @@ func TestAppend(t *testing.T) {
 	}{
 		{"Hello World"},
 		{"Hallöchen"},
+		{"汉字汉字汉字汉字汉字汉字"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.want, func(t *testing.T) {
@@ -55,6 +56,7 @@ func TestLen(t *testing.T) {
 	}{
 		{"English word", "Hello", 5},
 		{"Word with Umlaut", "Hallöchen", 9},
+		{"Multibyte", "汉字", 2},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
