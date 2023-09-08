@@ -3,7 +3,14 @@ package Text
 import (
 	"fmt"
 	"reflect"
+	"strings"
+	"sync"
 	"testing"
+)
+
+const (
+	NumOfThreads    = 10
+	NumOfIterations = 100
 )
 
 func TestAppend(t *testing.T) {
@@ -23,6 +30,30 @@ func TestAppend(t *testing.T) {
 				t.Errorf("StringBuilder.Append() = %v, want %v", got, tt.want)
 			}
 		})
+	}
+}
+
+func TestAppendConcurrent(t *testing.T) {
+	sb := &StringBuilder{}
+	data := "A"
+
+	var wg sync.WaitGroup
+	wg.Add(NumOfThreads)
+	for i := 0; i < NumOfThreads; i++ {
+		go func() {
+			defer wg.Done()
+			for j := 0; j < NumOfIterations; j++ {
+				sb.Append(data)
+			}
+		}()
+	}
+
+	wg.Wait()
+
+	expectedLength := NumOfIterations * NumOfThreads
+	actualLength := sb.Len()
+	if actualLength != expectedLength {
+		t.Errorf("TestAppendConcurrent: expected length %d, got %d", expectedLength, actualLength)
 	}
 }
 
@@ -122,6 +153,29 @@ func TestRemovePartOfString(t *testing.T) {
 	}
 }
 
+func TestRemovePartOfStringConcurrent(t *testing.T) {
+	sb := NewStringBuilderFromString(strings.Repeat("A", NumOfThreads*NumOfIterations))
+
+	var wg sync.WaitGroup
+	wg.Add(NumOfThreads)
+	for i := 0; i < NumOfThreads; i++ {
+		go func() {
+			defer wg.Done()
+			for j := 0; j < NumOfIterations; j++ {
+				sb.Remove(0, 1)
+			}
+		}()
+	}
+
+	wg.Wait()
+
+	expectedLength := 0
+	actualLength := sb.Len()
+	if actualLength != expectedLength {
+		t.Errorf("TestRemovePartOfStringConcurrent: expected length %d, got %d", expectedLength, actualLength)
+	}
+}
+
 func TestRemoveWhenStartIndexOutOfBounds(t *testing.T) {
 	sb := NewStringBuilderFromString("Hello")
 
@@ -193,6 +247,30 @@ func TestInsertAtIndex(t *testing.T) {
 	}
 }
 
+func TestInsertAtIndexConcurrent(t *testing.T) {
+	initialData := "Hello World"
+	sb := NewStringBuilderFromString(initialData)
+
+	var wg sync.WaitGroup
+	wg.Add(NumOfThreads)
+	for i := 0; i < NumOfThreads; i++ {
+		go func() {
+			defer wg.Done()
+			for j := 0; j < NumOfIterations; j++ {
+				sb.Insert(5, "A")
+			}
+		}()
+	}
+
+	wg.Wait()
+
+	expectedLength := len(initialData) + NumOfIterations*NumOfThreads
+	actualLength := sb.Len()
+	if actualLength != expectedLength {
+		t.Errorf("TestInsertAtIndexConcurrent: expected length %d, got %d", expectedLength, actualLength)
+	}
+}
+
 func TestInsertShouldThrowIfNegativeIndex(t *testing.T) {
 	sb := StringBuilder{}
 
@@ -246,6 +324,28 @@ func TestAppendRuneMultiple(t *testing.T) {
 
 	if result := sb.ToString(); result != expected {
 		t.Errorf("Actual %q, Expected: %q", result, expected)
+	}
+}
+
+func TestAppendRuneConcurrent(t *testing.T) {
+	sb := StringBuilder{}
+
+	var wg sync.WaitGroup
+	wg.Add(NumOfThreads)
+	for i := 0; i < NumOfThreads; i++ {
+		go func() {
+			defer wg.Done()
+			for j := 0; j < NumOfIterations; j++ {
+				sb.AppendRune('a')
+			}
+		}()
+	}
+
+	wg.Wait()
+
+	expected := strings.Repeat("a", NumOfIterations*NumOfThreads)
+	if result := sb.ToString(); result != expected {
+		t.Errorf("TestAppendRuneConcurrent: actual %q, expected: %q", result, expected)
 	}
 }
 
