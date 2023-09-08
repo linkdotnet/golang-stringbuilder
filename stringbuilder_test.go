@@ -430,6 +430,27 @@ func TestReplaceRune(t *testing.T) {
 	}
 }
 
+func TestReplaceRuneConcurrent(t *testing.T) {
+	sb := NewStringBuilderFromString("Hello")
+
+	var wg sync.WaitGroup
+	wg.Add(NumOfThreads)
+	for i := 0; i < NumOfThreads; i++ {
+		go func() {
+			defer wg.Done()
+			for j := 0; j < NumOfIterations; j++ {
+				sb.ReplaceRune('l', 'm')
+			}
+		}()
+	}
+
+	wg.Wait()
+
+	if got := sb.ToString(); got != "Hemmo" {
+		t.Errorf("StringBuilder.ReplaceRune() = %v, want %v", got, "Hemmo")
+	}
+}
+
 func TestReplace(t *testing.T) {
 	tests := []struct {
 		name     string
@@ -543,6 +564,28 @@ func TestReuseReversedStringBuilder(t *testing.T) {
 	sb = *sb.Append("A").Append("B").Append("C").Reverse().Append("X")
 	if got := sb.ToString(); got != "CBAX" {
 		t.Errorf("StringBuilder.Reverse() = %v, want %v", got, "CBAX")
+	}
+}
+
+func TestReverseStringBuilderConcurrent(t *testing.T) {
+	sb := NewStringBuilderFromString("ABC")
+
+	var wg sync.WaitGroup
+	wg.Add(NumOfThreads)
+	for i := 0; i < NumOfThreads; i++ {
+		go func() {
+			defer wg.Done()
+			for j := 0; j < NumOfIterations; j++ {
+				sb = sb.Reverse()
+			}
+		}()
+	}
+
+	wg.Wait()
+
+	expected := "ABC" // We expect the original string as we have reversed NumOfThreads * NumOfIterations times which is even
+	if got := sb.ToString(); got != expected {
+		t.Errorf("StringBuilder.Reverse() = %v, want %v", got, expected)
 	}
 }
 
