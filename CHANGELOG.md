@@ -6,6 +6,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Changed
+- Refactored search functions
+
 ## [0.10.0] - 2023-08-31
 
 ### Added
