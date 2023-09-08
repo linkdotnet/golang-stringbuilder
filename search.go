@@ -1,8 +1,7 @@
 package Text
 
-// Returns all occurences of needle in haystack
+// Returns all occurrences of needle in haystack
 func findAll(haystack []rune, needle string) []int {
-
 	needleAsRunes := []rune(needle)
 	lenNeedle := len(needleAsRunes)
 
@@ -10,17 +9,12 @@ func findAll(haystack []rune, needle string) []int {
 		return []int{}
 	}
 
-	items := make([]int, 0, 8)
+	var items []int
 
-	for i := 0; i < len(haystack); i++ {
-		for j := 0; j < lenNeedle; j++ {
-			if haystack[i+j] != needleAsRunes[j] {
-				break
-			}
-
-			if j == lenNeedle-1 {
-				items = append(items, i)
-			}
+	limit := len(haystack) - lenNeedle
+	for i := 0; i <= limit; i++ {
+		if matchAt(haystack, needleAsRunes, i) {
+			items = append(items, i)
 		}
 	}
 
@@ -36,17 +30,10 @@ func findFirst(haystack []rune, needle string) int {
 		return -1
 	}
 
-	lenHaystack := len(haystack)
-
-	for i := 0; i <= lenHaystack-lenNeedle; i++ {
-		for j := 0; j < lenNeedle; j++ {
-			if haystack[i+j] != needleAsRunes[j] {
-				break
-			}
-
-			if j == lenNeedle-1 {
-				return i
-			}
+	limit := len(haystack) - lenNeedle
+	for i := 0; i <= limit; i++ {
+		if matchAt(haystack, needleAsRunes, i) {
+			return i
 		}
 	}
 
@@ -62,19 +49,22 @@ func findLast(haystack []rune, needle string) int {
 		return -1
 	}
 
-	lenHaystack := len(haystack)
-
-	for i := lenHaystack - lenNeedle; i >= 0; i-- {
-		for j := 0; j < lenNeedle; j++ {
-			if haystack[i+j] != needleAsRunes[j] {
-				break
-			}
-
-			if j == lenNeedle-1 {
-				return i
-			}
+	limit := len(haystack) - lenNeedle
+	for i := limit; i >= 0; i-- {
+		if matchAt(haystack, needleAsRunes, i) {
+			return i
 		}
 	}
 
 	return -1
+}
+
+// Checks if the needle matches within the haystack starting at a given position.
+func matchAt(haystack []rune, needle []rune, pos int) bool {
+	for j := range needle {
+		if haystack[pos+j] != needle[j] {
+			return false
+		}
+	}
+	return true
 }
