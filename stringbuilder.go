@@ -6,6 +6,7 @@ import (
 	"sync"
 )
 
+// StringBuilder is a thread-safe & mutable sequence of characters
 type StringBuilder struct {
 	data     []rune
 	position int

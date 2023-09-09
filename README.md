@@ -3,7 +3,7 @@
 [![GoDoc](https://pkg.go.dev/badge/github.com/linkdotnet/golang-stringbuilder?status.svg)](https://pkg.go.dev/github.com/linkdotnet/golang-stringbuilder?tab=doc)
 
 # golang-stringbuilder
-A string builder that has similar capabilities as the one from C#. The goal is to have a straightforward API that lets you work with strings easily.
+A string builder that has similar capabilities as the one from C#. The goal is to have a straightforward API that lets you work with strings easily. All the mutations on the `StringBuilder` are thread-safe. 
 
 ## Install
 
