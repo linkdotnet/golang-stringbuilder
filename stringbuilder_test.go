@@ -621,6 +621,57 @@ func TestStringBuilderSubstring(t *testing.T) {
 	}
 }
 
+func TestStringBuilderReadFrom(t *testing.T) {
+	tests := []struct {
+		name      string
+		input     string
+		expected  string
+		expectErr bool
+	}{
+		{
+			name:      "basic text",
+			input:     "hello, world",
+			expected:  "hello, world",
+			expectErr: false,
+		},
+		{
+			name:      "empty input",
+			input:     "",
+			expected:  "",
+			expectErr: false,
+		},
+		{
+			name:      "unicode characters",
+			input:     "こんにちは, 世界",
+			expected:  "こんにちは, 世界",
+			expectErr: false,
+		},
+		{
+			name:      "numbers and symbols",
+			input:     "12345!@#$%^",
+			expected:  "12345!@#$%^",
+			expectErr: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			builder := &StringBuilder{}
+			r := strings.NewReader(tt.input)
+			_, err := builder.ReadFrom(r)
+
+			if (err != nil) != tt.expectErr {
+				t.Fatalf("expected error: %v, got: %v", tt.expectErr, err)
+			}
+
+			result := builder.ToString()
+			if result != tt.expected {
+				t.Errorf("expected: %s, got: %s", tt.expected, result)
+			}
+		})
+	}
+}
+
 func slicesEqual(a []int, b []int) bool {
 	if len(a) != len(b) {
 		return false
