@@ -8,6 +8,7 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ### Changed
 - Refactored search functions
+- Make StringBuilder thread-safe
 
 ## [0.10.0] - 2023-08-31
 
