@@ -2,6 +2,7 @@ package Text
 
 import (
 	"fmt"
+	"io"
 	"strconv"
 	"sync"
 )
@@ -287,6 +288,18 @@ func (s *StringBuilder) Substring(start, end int) (string, error) {
 	r := make([]rune, end-start)
 	copy(r, s.data[start:end])
 	return string(r), nil
+}
+
+// Reads the content from the given reader and appends it to the string builder
+func (s *StringBuilder) ReadFrom(r io.Reader) (int64, error) {
+	bytes, err := io.ReadAll(r)
+	if err != nil {
+		return 0, err
+	}
+
+	text := string(bytes)
+	s.Append(text)
+	return int64(len(text)), nil
 }
 
 func (s *StringBuilder) resize(words ...string) {

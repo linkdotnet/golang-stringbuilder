@@ -6,6 +6,9 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+### Added
+- `ReadFrom` to read from an `io.Reader` into the string builder
+
 ### Changed
 - Refactored search functions
 - Make StringBuilder thread-safe
