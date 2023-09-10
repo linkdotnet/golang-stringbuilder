@@ -6,6 +6,8 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+This is `v1` of the `StringBuilder`. See the complete changelog below for a detailed list of changes.
+
 ### Added
 - `ReadFrom` to read from an `io.Reader` into the string builder
 
