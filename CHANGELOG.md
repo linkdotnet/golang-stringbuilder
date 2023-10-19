@@ -4,7 +4,12 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 <!-- The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) -->
 
-## [Unreleased]
+## [Unreleased] - 2023-10-19
+
+### Added
+
+-   `SetRuneAt` is added to the string builder
+-   `Skip` is added to the string builder
 
 ## [0.10.0] - 2023-08-31
 

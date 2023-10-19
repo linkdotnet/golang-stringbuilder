@@ -337,11 +337,6 @@ func createTrimSet(chars ...rune) map[rune]bool {
 	return trimSet
 }
 
-// Set initial position
-func (s *StringBuilder) Rewind() {
-	s.position = 0
-}
-
 // Sets the rune at the specific position
 func (s *StringBuilder) SetRuneAt(index int, val rune) error {
 	if index < 0 {
