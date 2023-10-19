@@ -493,3 +493,41 @@ func slicesEqual(a []int, b []int) bool {
 
 	return true
 }
+
+func TestSetRuneAt(t *testing.T) {
+	sb := NewStringBuilderFromString("Hello")
+
+	err := sb.SetRuneAt(10, 'a')
+	if err == nil {
+		t.Errorf("Should throw error but did not")
+	}
+
+	err = sb.SetRuneAt(0, 'a')
+	if err != nil {
+		t.Errorf("Should not throw error")
+	}
+
+	if result := sb.RuneAt(0); result != 'a' {
+		t.Errorf("Actual %q, Expected: %q", result, 'e')
+	}
+}
+
+func TestSkip(t *testing.T) {
+	sb := NewStringBuilderFromString("Hello")
+
+	err := sb.Skip(1)
+	if err == nil {
+		t.Errorf("Should throw error but did not")
+	}
+
+	sb.Clear()
+
+	err = sb.Skip(1)
+	if err != nil {
+		t.Errorf("Should not throw error")
+	}
+
+	if sb.position != 1 {
+		t.Errorf("Actual position %d, Expected: 1", sb.position)
+	}
+}
