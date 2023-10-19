@@ -336,3 +336,38 @@ func createTrimSet(chars ...rune) map[rune]bool {
 
 	return trimSet
 }
+
+// Set initial position
+func (s *StringBuilder) Rewind() {
+	s.position = 0
+}
+
+// Sets the rune at the specific position
+func (s *StringBuilder) SetRuneAt(index int, val rune) error {
+	if index < 0 {
+		return fmt.Errorf("index should always be greater than or equal to zero")
+	}
+	if index > s.position {
+		return fmt.Errorf("index cannot be greater than current position")
+	}
+	s.data[index] = val
+
+	return nil
+}
+
+// Change current position
+func (s *StringBuilder) Skip(forward int) error {
+	if forward <= 0 {
+		return fmt.Errorf("forward should always be greater than zero")
+	}
+
+	newPos := s.position + forward
+
+	if newPos >= len(s.data) {
+		return fmt.Errorf("cannot skip after end of string builder")
+	}
+
+	s.position = newPos
+
+	return nil
+}
