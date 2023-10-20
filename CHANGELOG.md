@@ -6,6 +6,8 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 
 ## [Unreleased]
 
+## [0.11.0] - 2023-10-20
+
 ### Added
 
 -   `SetRuneAt` is added to the string builder
@@ -105,7 +107,9 @@ This is the initial release for the `StringBuilder`.
 
 -   `StringBuilder` with some major methods like (`Insert`, `Remove`, `Append`)
 
-[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.10.0...HEAD
+[Unreleased]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.11.0...HEAD
+
+[0.11.0]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.10.0...0.11.0
 
 [0.10.0]: https://github.com/linkdotnet/golang-stringbuilder/compare/0.9.0...0.10.0
 
