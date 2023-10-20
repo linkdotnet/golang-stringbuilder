@@ -349,20 +349,3 @@ func (s *StringBuilder) SetRuneAt(index int, val rune) error {
 
 	return nil
 }
-
-// Change current position
-func (s *StringBuilder) Skip(forward int) error {
-	if forward <= 0 {
-		return fmt.Errorf("forward should always be greater than zero")
-	}
-
-	newPos := s.position + forward
-
-	if newPos >= len(s.data) {
-		return fmt.Errorf("cannot skip after end of string builder")
-	}
-
-	s.position = newPos
-
-	return nil
-}
