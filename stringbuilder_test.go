@@ -511,23 +511,3 @@ func TestSetRuneAt(t *testing.T) {
 		t.Errorf("Actual %q, Expected: %q", result, 'e')
 	}
 }
-
-func TestSkip(t *testing.T) {
-	sb := NewStringBuilderFromString("Hello")
-
-	err := sb.Skip(1)
-	if err == nil {
-		t.Errorf("Should throw error but did not")
-	}
-
-	sb.Clear()
-
-	err = sb.Skip(1)
-	if err != nil {
-		t.Errorf("Should not throw error")
-	}
-
-	if sb.position != 1 {
-		t.Errorf("Actual position %d, Expected: 1", sb.position)
-	}
-}

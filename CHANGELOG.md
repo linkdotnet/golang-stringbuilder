@@ -9,7 +9,6 @@ All notable changes to **ValueStringBuilder** will be documented in this file. T
 ### Added
 
 -   `SetRuneAt` is added to the string builder
--   `Skip` is added to the string builder
 
 ## [0.10.0] - 2023-08-31
 
